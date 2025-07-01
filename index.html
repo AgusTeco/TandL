@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Actividades Futurista</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        /* --- Base Styles (Futurista Edition) --- */
+        :root {
+            /* Colores Base */
+            --bg-light: #e0f2f7; /* Un azul muy claro */
+            --text-light: #2c3e50; /* Azul oscuro casi negro */
+            --primary-light: #342ac2; /* Azul vibrante */
+            --secondary-light: #9767ac; /* Púrpura */
+            --accent-light: #2ecc71; /* Verde esmeralda */
+            --border-light: #bdc3c7; /* Gris claro */
+            --shadow-light: rgba(0, 0, 0, 0.15);
+
+            /* Colores Modo Oscuro */
+            --bg-dark: #1a1a2e; /* Azul oscuro muy profundo */
+            --text-dark: #e0f2f7; /* Azul muy claro para texto */
+            --primary-dark: #4a2dff; /* Azul neón vibrante */
+            --secondary-dark: #bb86fc; /* Púrpura neón */
+            --accent-dark: #00ffc8; /* Cian neón */
+            --border-dark: #3a3a4e; /* Gris azulado oscuro */
+            --shadow-dark: rgba(0, 0, 0, 0.5);
+            --glow-dark: rgba(74, 45, 255, 0.6); /* Glow azul para interacciones */
+            --glow-dark-secondary: rgba(187, 134, 252, 0.6); /* Glow púrpura */
+            --glow-dark-success: rgba(0, 255, 200, 0.6); /* Glow cian */
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace; /* Fuente más tecnológica */
+            margin: 0;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-y: auto;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+        .container {
+            background-color: #fff; /* Se manejará por dark-mode */
+            padding: 40px; /* Más padding para un diseño espacioso */
+            border-radius: 15px; /* Bordes más suaves */
+            box-shadow: 0 8px 30px var(--shadow-light); /* Sombra más definida */
+            max-width: 900px; /* Un poco más ancho */
+            width: 100%;
+            margin: 20px auto;
+            position: relative;
+            border: 1px solid var(--border-light);
+            box-sizing: border-box;
+            transition: background-color 0.4s ease-in-out, border-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+        }
+        h1, h2, h3 {
+            color: var(--primary-light);
+            transition: color 0.4s ease-in-out, text-shadow 0.2s;
+            margin-bottom: 25px;
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(52, 152, 219, 0.3); /* Sutil glow para títulos */
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-light);
+            font-family: 'Roboto', sans-serif; /* Roboto para etiquetas más legibles */
+        }
+        input[type="text"], input[type="number"], input[type="time"], select {
+            width: calc(100% - 24px); /* Ajuste de padding */
+            padding: 14px; /* Más padding */
+            margin-bottom: 20px;
+            border: 1px solid var(--primary-light); /* Borde con color principal */
+            border-radius: 8px;
+            box-sizing: border-box;
+            background-color: #f8fcfd; /* Fondo ligeramente diferente para inputs */
+            color: var(--text-light);
+            font-size: 17px; /* Aumentar tamaño de fuente */
+            transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="time"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--secondary-light); /* Resalte secundario al enfocar */
+            box-shadow: 0 0 12px rgba(142, 68, 173, 0.6), inset 0 1px 3px rgba(0, 0, 0, 0.15); /* Glow más fuerte */
+        }
+        button {
+            background-color: var(--primary-light);
+            color: white;
+            padding: 14px 25px; /* Más padding */
+            border: none;
+            border-radius: 8px; /* Más redondeado */
+            cursor: pointer;
+            font-size: 17px;
+            margin-right: 15px;
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.15s ease-out, filter 0.3s;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+            font-family: 'Roboto', sans-serif; /* Roboto para botones */
+            letter-spacing: 0.5px;
+        }
+        button:hover {
+            background-color: #2980b9; /* Tono más oscuro al hover */
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+            transform: translateY(-2px); /* Ligero efecto de levantamiento */
+            filter: brightness(1.1); /* Efecto de brillo */
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .hidden {
+            display: none;
+        }
+        #calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px; /* Mayor espacio entre celdas */
+            margin-top: 30px;
+            text-align: center;
+        }
+        .day-header {
+            font-weight: 700;
+            background-color: #ecf0f1; /* Gris más suave */
+            padding: 12px;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .day-cell {
+            padding: 15px; /* Más padding */
+            border: 1px solid #dce1e6; /* Borde más suave */
+            border-radius: 10px; /* Más redondeado */
+            cursor: pointer;
+            background-color: #ffffff;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.2s, transform 0.1s ease-out;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            font-size: 1.1em;
+        }
+        .day-cell:hover {
+            background-color: #eaf3f8;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        .day-cell.selected {
+            background-color: var(--primary-light);
+            color: white;
+            border-color: #2980b9;
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.5); /* Sombra más pronunciada al seleccionar */
+            transform: translateY(-1px);
+        }
+        .day-cell.has-data {
+            background-color: #d4edda; /* Verde claro para días con datos */
+            border-color: #28a745;
+            font-weight: 500;
+            position: relative;
+        }
+        .day-cell.has-data::before { /* Nuevo indicador visual */
+            content: '';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-light);
+            border-radius: 50%;
+            box-shadow: 0 0 5px var(--accent-light); /* Pequeño glow */
+        }
+        .day-cell.selected.has-data {
+            background-color: var(--primary-light);
+            color: white;
+            border-color: #2980b9;
+        }
+        .day-cell.selected.has-data::before {
+            background-color: #fff; /* Indicador blanco sobre fondo azul oscuro */
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+        }
+
+        .variable-entry {
+            border: 1px solid var(--border-light);
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fcfcfc;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        .variable-entry:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.2);
+        }
+        .variable-entry p {
+            margin-bottom: 10px;
+            color: #444;
+            font-family: 'Roboto', sans-serif;
+        }
+        .variable-entry button {
+            background-color: #e74c3c; /* Rojo de eliminar */
+            margin-top: 15px;
+            font-size: 16px;
+            padding: 10px 18px;
+            box-shadow: 0 3px 8px rgba(231, 76, 60, 0.3);
+        }
+        .variable-entry button:hover {
+            background-color: #c0392b;
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+        }
+        .export-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px dashed var(--border-light); /* Borde punteado futurista */
+            transition: border-color 0.3s;
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .export-section button {
+            flex-grow: 1;
+            min-width: 180px;
+        }
+        .form-row {
+            display: flex;
+            gap: 25px; /* Mayor espacio entre columnas */
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .form-row > div {
+            flex: 1;
+            min-width: 280px; /* Asegura que cada campo tenga un ancho mínimo */
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 30px auto;
+            max-width: 200px; /* Tamaño un poco más grande del logo */
+            height: auto;
+            transition: filter 0.3s ease-in-out;
+        }
+        hr {
+            border: none;
+            border-top: 1px dotted #ccc; /* Línea más fina y punteada */
+            margin: 30px 0;
+            transition: border-top-color 0.4s;
+        }
+
+        /* --- Estilos para el Modo Oscuro (Futurista Edition) --- */
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+        .dark-mode .container {
+            background-color: #22223a; /* Contenedor azul oscuro */
+            box-shadow: 0 8px 30px var(--shadow-dark);
+            border-color: #4a2dff; /* Borde principal neón */
+        }
+        .dark-mode h1, .dark-mode h2, .dark-mode h3 {
+            color: var(--secondary-dark); /* Púrpura neón para títulos */
+            text-shadow: 0 0 10px var(--secondary-dark), 0 0 20px rgba(187, 134, 252, 0.4); /* Glow más intenso */
+        }
+        .dark-mode label {
+            color: var(--text-dark);
+        }
+        .dark-mode input[type="text"], 
+        .dark-mode input[type="number"], 
+        .dark-mode input[type="time"], 
+        .dark-mode select {
+            background-color: #2b2b40;
+            color: var(--text-dark);
+            border-color: #bb86fc; /* Borde púrpura neón */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        .dark-mode input[type="text"]:focus,
+        .dark-mode input[type="number"]:focus,
+        .dark-mode input[type="time"]:focus,
+        .dark-mode select:focus {
+            border-color: var(--accent-dark); /* Cian neón al enfocar */
+            box-shadow: 0 0 15px var(--glow-dark), inset 0 1px 5px rgba(0, 0, 0, 0.4); /* Glow azul oscuro */
+        }
+        .dark-mode button {
+            background-color: var(--primary-dark); /* Azul neón para botones */
+            box-shadow: 0 4px 15px rgba(74, 45, 255, 0.4); /* Glow azul */
+        }
+        .dark-mode button:hover {
+            background-color: #6a4bff;
+            box-shadow: 0 6px 20px rgba(74, 45, 255, 0.6);
+            filter: brightness(1.2);
+        }
+        .dark-mode .day-header {
+            background-color: #2b2b40;
+            color: var(--text-dark);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .dark-mode .day-cell {
+            background-color: #22223a;
+            border-color: #4a2dff; /* Borde azul neón para celdas */
+            color: var(--text-dark);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .dark-mode .day-cell:hover {
+            background-color: #2b2b40;
+            box-shadow: 0 4px 15px var(--glow-dark-secondary); /* Glow púrpura al hover */
+            transform: translateY(-3px);
+        }
+        .dark-mode .day-cell.selected {
+            background-color: var(--primary-dark);
+            color: white;
+            border-color: #bb86fc;
+            box-shadow: 0 6px 20px var(--glow-dark); /* Glow más fuerte al seleccionar */
+        }
+        .dark-mode .day-cell.has-data {
+            background-color: #1c5237; /* Verde esmeralda oscuro */
+            border-color: #00ffc8; /* Cian neón */
+            color: var(--text-dark);
+        }
+        .dark-mode .day-cell.has-data::before {
+            background-color: var(--accent-dark);
+            box-shadow: 0 0 8px var(--accent-dark);
+        }
+        .dark-mode .day-cell.selected.has-data {
+            background-color: var(--primary-dark);
+            color: white;
+            border-color: #bb86fc;
+        }
+        .dark-mode .day-cell.selected.has-data::before {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        .dark-mode .variable-entry {
+            background-color: #2b2b40;
+            border-color: #4a2dff; /* Borde principal neón */
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+        }
+        .dark-mode .variable-entry:hover {
+            border-color: #bb86fc; /* Borde púrpura neón al hover */
+            box-shadow: 0 4px 12px var(--glow-dark-secondary);
+        }
+        .dark-mode .variable-entry p {
+            color: var(--text-dark);
+        }
+        .dark-mode .variable-entry button {
+            background-color: #ff4d4d; /* Rojo más brillante para eliminar */
+            box-shadow: 0 3px 10px rgba(255, 77, 77, 0.3);
+        }
+        .dark-mode .variable-entry button:hover {
+            background-color: #ff1a1a;
+            box-shadow: 0 4px 12px rgba(255, 77, 77, 0.4);
+        }
+        .dark-mode .export-section {
+            border-top-color: #4a2dff; /* Borde neón punteado */
+        }
+        .dark-mode hr {
+            border-top: 1px dotted #bb86fc; /* Línea punteada púrpura */
+        }
+        #darkModeToggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px; /* Más redondeado */
+            font-size: 15px;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+            font-family: 'Roboto', sans-serif;
+            z-index: 10; /* Asegura que esté por encima de otros elementos */
+        }
+        #darkModeToggle:hover {
+            background-color: #5a6268;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- Estilos para Sábados y Domingos (Futurista Edition) --- */
+        .day-cell.weekend-day {
+            background-color: #ffe0b2; /* Naranja muy claro para fines de semana en modo claro */
+            color: #e65100; /* Texto naranja oscuro */
+            border-color: #ffb74d;
+        }
+        .day-cell.weekend-day:hover {
+            background-color: #ffebd4;
+            box-shadow: 0 4px 12px rgba(255, 183, 77, 0.3);
+        }
+        .dark-mode .day-cell.weekend-day {
+            background-color: #3b2b1a; /* Marrón oscuro para fines de semana en modo oscuro */
+            color: #ffcc80; /* Texto naranja claro */
+            border-color: #ff9800; /* Borde naranja neón */
+        }
+        .dark-mode .day-cell.weekend-day:hover {
+            background-color: #453423;
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+        }
+        /* Asegurar que el día seleccionado o con datos mantenga su estilo sobre el fin de semana */
+        .day-cell.weekend-day.selected,
+        .dark-mode .day-cell.weekend-day.selected {
+            background-color: var(--primary-light); /* Mantener el azul de selección */
+            color: white;
+            border-color: #2980b9;
+        }
+        .dark-mode .day-cell.weekend-day.selected {
+            background-color: var(--primary-dark);
+            border-color: #bb86fc;
+        }
+        .day-cell.weekend-day.has-data,
+        .dark-mode .day-cell.weekend-day.has-data {
+            background-color: #d4edda; /* Mantener el verde de "con datos" */
+            border-color: #28a745;
+            color: #333;
+        }
+        .dark-mode .day-cell.weekend-day.has-data {
+             background-color: #1c5237; /* Mantener el verde oscuro de "con datos" */
+             color: var(--text-dark);
+        }
+        /* Para cuando un día de fin de semana está seleccionado Y tiene datos */
+        .day-cell.weekend-day.selected.has-data,
+        .dark-mode .day-cell.weekend-day.selected.has-data {
+            background-color: var(--primary-light); /* Mantener el azul oscuro de selección y datos */
+            color: white;
+            border-color: #2980b9;
+        }
+        .dark-mode .day-cell.weekend-day.selected.has-data {
+            background-color: var(--primary-dark);
+            border-color: #bb86fc;
+        }
+
+        /* Media queries para responsividad */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                margin: 15px;
+                width: auto;
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .form-row > div {
+                min-width: unset;
+                width: 100%;
+            }
+            input[type="text"], input[type="number"], input[type="time"], select {
+                width: 100%;
+                padding: 12px;
+            }
+            button {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 15px;
+                padding: 12px 20px;
+            }
+            .export-section {
+                flex-direction: column;
+            }
+            #darkModeToggle {
+                position: static;
+                margin-bottom: 25px;
+                width: 100%;
+                text-align: center;
+                box-sizing: border-box;
+            }
+            .logo {
+                max-width: 150px;
+                margin-bottom: 20px;
+            }
+            h1, h2, h3 {
+                margin-bottom: 20px;
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button id="darkModeToggle" class="hidden" onclick="toggleDarkMode()">Modo Oscuro</button>
+
+        <div id="user-input-view">
+            <img src="Teco.png" alt="Telecom Logo" class="logo"> <h2>Ingresar Número de Usuario</h2>
+            <label for="user-id">Número de Usuario:</label>
+            <input type="text" id="user-id" placeholder="Ej: 12345" required>
+            <button onclick="loginUser()">Continuar</button>
+        </div>
+
+        <div id="main-app-view" class="hidden">
+            <img src="Teco.png" alt="Telecom Logo" class="logo"> <h1>Bienvenido, Usuario: <span id="current-user-display"></span></h1>
+
+            <div id="calendar-view">
+                <h2>Seleccionar Mes y Día para la carga de Variables</h2>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <button onclick="prevMonth()">&lt; Mes Anterior</button>
+                    <h3 id="current-month-display"></h3>
+                    <button onclick="nextMonth()">Mes Siguiente &gt;</button>
+                </div>
+                <div id="calendar-grid">
+                    <div class="day-header">Lun</div>
+                    <div class="day-header">Mar</div>
+                    <div class="day-header">Mié</div>
+                    <div class="day-header">Jue</div>
+                    <div class="day-header">Vie</div>
+                    <div class="day-header">Sáb</div>
+                    <div class="day-header">Dom</div>
+                </div>
+                <div class="export-section">
+                    <button onclick="exportToExcel()">Exportar Mes a Excel</button>
+                    <button onclick="logoutUser()" style="background-color: #6c757d;">Cambiar Usuario</button>
+                </div>
+            </div>
+
+            <div id="data-entry-view" class="hidden">
+                <img src="Teco.png" alt="Telecom Logo" class="logo"> <h2>Cargar Datos para: <span id="selected-date-display"></span></h2>
+                <button onclick="backToCalendar()">Volver al Calendario</button>
+                <hr>
+
+                <h3>Variables Predefinidas</h3>
+                <div id="predefined-variables-container">
+                    </div>
+
+                <h3>Agregar Nueva Variable Personalizada</h3>
+                <div class="form-row">
+                    <div>
+                        <label for="new-var-code">Código (ej. ARxxxx):</label>
+                        <input type="text" id="new-var-code">
+                    </div>
+                    <div>
+                        <label for="new-var-name">Nombre:</label>
+                        <input type="text" id="new-var-name">
+                    </div>
+                </div>
+                <button onclick="addCustomVariable()">Agregar Variable Personalizada</button>
+                <hr>
+
+                <h3>Datos Registrados para este día:</h3>
+                <div id="daily-data-entries">
+                    <p id="no-data-message">No hay datos registrados para este día.</p>
+                </div>
+
+                <button onclick="saveDailyData()" style="margin-top: 20px;">Guardar Datos del Día</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script>
+        // --- Data Storage (simulando una base de datos con localStorage) ---
+        let appData = JSON.parse(localStorage.getItem('appData')) || {};
+        let currentUserId = localStorage.getItem('currentUserId') || null;
+        let darkModeEnabled = localStorage.getItem('darkModeEnabled') === 'true'; // Cargar preferencia de modo oscuro
+
+        const predefinedVariables = [
+            { code: "AR0484", name: "Adicional ascenso a torre", requiresTime: false, requiresQuantity: false, requiresJustification: false },
+            { code: "AR0488", name: "Adicional Manejo", requiresTime: false, requiresQuantity: false, requiresJustification: false },
+            { code: "AR0512", name: "Adicional Gp24hs", requiresTime: false, requiresQuantity: false, requiresJustification: false },
+            { code: "AR0510", name: "Adicional Gp16hs", requiresTime: false, requiresQuantity: false, requiresJustification: false },
+            { code: "AR0524", name: "Horas extras diurna al 50%", requiresTime: true, requiresQuantity: true, requiresJustification: true },
+            { code: "AR0525", name: "Horas extras nocturnas 50%", requiresTime: true, requiresQuantity: true, requiresJustification: true },
+            { code: "AR0526", name: "Horas extras nocturnas al 100%", requiresTime: true, requiresQuantity: true, requiresJustification: true },
+            { code: "AR0523", name: "Horas extras diurnas al 100 %", requiresTime: true, requiresQuantity: true, requiresJustification: true }
+        ];
+
+        const extraHourCodes = ["AR0524", "AR0525", "AR0526", "AR0523"];
+
+        let currentMonth = new Date();
+        let selectedDay = null;
+
+        // --- UI Elements ---
+        const userIdInput = document.getElementById('user-id');
+        const userInputView = document.getElementById('user-input-view');
+        const mainAppView = document.getElementById('main-app-view');
+        const currentUserDisplay = document.getElementById('current-user-display');
+        const currentMonthDisplay = document.getElementById('current-month-display');
+        const calendarGrid = document.getElementById('calendar-grid');
+        const dataEntryView = document.getElementById('data-entry-view');
+        const selectedDateDisplay = document.getElementById('selected-date-display');
+        const predefinedVariablesContainer = document.getElementById('predefined-variables-container');
+        const newVarCodeInput = document.getElementById('new-var-code');
+        const newVarNameInput = document.getElementById('new-var-name');
+        const dailyDataEntries = document.getElementById('daily-data-entries');
+        const noDataMessage = document.getElementById('no-data-message');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+
+
+        // --- Funciones de Inicialización y Vistas ---
+
+        function initApp() {
+            console.log("App iniciada. currentUserId:", currentUserId);
+            applyDarkModePreference();
+            if (currentUserId) {
+                showMainApp();
+            } else {
+                showLogin();
+            }
+        }
+
+        function showLogin() {
+            console.log("Mostrando vista de login.");
+            userInputView.classList.remove('hidden');
+            mainAppView.classList.add('hidden');
+            darkModeToggle.classList.add('hidden');
+            userIdInput.value = '';
+        }
+
+        function showMainApp() {
+            console.log("Mostrando vista principal de la aplicación. Usuario:", currentUserId);
+            userInputView.classList.add('hidden');
+            mainAppView.classList.remove('hidden');
+            darkModeToggle.classList.remove('hidden');
+            currentUserDisplay.textContent = currentUserId;
+            renderCalendar();
+            document.getElementById('calendar-view').classList.remove('hidden');
+            dataEntryView.classList.add('hidden');
+        }
+
+        function loginUser() {
+            const id = userIdInput.value.trim();
+            console.log("Intento de login con ID:", id);
+            if (id) {
+                currentUserId = id;
+                localStorage.setItem('currentUserId', currentUserId);
+                if (!appData[currentUserId]) {
+                    console.log("Inicializando datos para nuevo usuario:", currentUserId);
+                    appData[currentUserId] = {
+                        personalVariables: [],
+                        dailyData: {}
+                    };
+                    saveAppData();
+                }
+                showMainApp();
+            } else {
+                alert("Por favor, ingresa un número de usuario.");
+                console.log("ID de usuario vacío.");
+            }
+        }
+
+        function logoutUser() {
+            console.log("Cerrando sesión de usuario:", currentUserId);
+            currentUserId = null;
+            localStorage.removeItem('currentUserId');
+            showLogin();
+        }
+
+        function saveAppData() {
+            localStorage.setItem('appData', JSON.stringify(appData));
+            console.log("Datos guardados en localStorage.");
+        }
+
+        // --- Funciones de Modo Oscuro ---
+        function toggleDarkMode() {
+            darkModeEnabled = !darkModeEnabled;
+            localStorage.setItem('darkModeEnabled', darkModeEnabled);
+            console.log("Modo oscuro toggled. Estado:", darkModeEnabled);
+            applyDarkModePreference();
+        }
+
+        function applyDarkModePreference() {
+            const logos = document.querySelectorAll('.logo');
+            if (darkModeEnabled) {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.textContent = "Modo Claro";
+                logos.forEach(logo => {
+                    logo.src = "Teco_white.png";
+                });
+                console.log("Aplicando modo oscuro. Logo: Teco_white.png");
+            } else {
+                document.body.classList.remove('dark-mode');
+                darkModeToggle.textContent = "Modo Oscuro";
+                logos.forEach(logo => {
+                    logo.src = "Teco.png";
+                });
+                console.log("Aplicando modo claro. Logo: Teco.png");
+            }
+        }
+
+        // --- Funciones de Calendario ---
+
+        function renderCalendar() {
+            console.log("Renderizando calendario para el mes:", currentMonth.toLocaleString('es-ES', { month: 'long', year: 'numeric' }));
+            calendarGrid.innerHTML = `
+                <div class="day-header">Lun</div>
+                <div class="day-header">Mar</div>
+                <div class="day-header">Mié</div>
+                <div class="day-header">Jue</div>
+                <div class="day-header">Vie</div>
+                <div class="day-header">Sáb</div>
+                <div class="day-header">Dom</div>
+            `;
+            currentMonthDisplay.textContent = currentMonth.toLocaleString('es-ES', { month: 'long', year: 'numeric' });
+
+            const firstDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+            const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
+            
+            let firstDayOfWeek = firstDayOfMonth.getDay();
+            if (firstDayOfWeek === 0) firstDayOfWeek = 6;
+            else firstDayOfWeek--;
+
+            for (let i = 0; i < firstDayOfWeek; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.classList.add('day-cell', 'empty');
+                calendarGrid.appendChild(emptyCell);
+            }
+
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayCell = document.createElement('div');
+                dayCell.classList.add('day-cell');
+                dayCell.textContent = i;
+                const fullDate = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+                dayCell.dataset.date = fullDate;
+
+                const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), i);
+                const dayOfWeek = date.getDay();
+
+                if (dayOfWeek === 0 || dayOfWeek === 6) {
+                    dayCell.classList.add('weekend-day');
+                }
+
+                if (appData[currentUserId] && appData[currentUserId].dailyData[fullDate] && appData[currentUserId].dailyData[fullDate].length > 0) {
+                    dayCell.classList.add('has-data');
+                }
+
+                dayCell.onclick = () => selectDay(dayCell, fullDate);
+                calendarGrid.appendChild(dayCell);
+            }
+        }
+
+        function prevMonth() {
+            currentMonth.setMonth(currentMonth.getMonth() - 1);
+            renderCalendar();
+            console.log("Mes anterior.");
+        }
+
+        function nextMonth() {
+            currentMonth.setMonth(currentMonth.getMonth() + 1);
+            renderCalendar();
+            console.log("Mes siguiente.");
+        }
+
+        function selectDay(cell, dateString) {
+            console.log("Día seleccionado:", dateString);
+            const prevSelected = document.querySelector('.day-cell.selected');
+            if (prevSelected) {
+                prevSelected.classList.remove('selected');
+            }
+            cell.classList.add('selected');
+            selectedDay = dateString;
+            loadDailyDataForEntryView(dateString);
+        }
+
+        // --- Funciones de Carga de Datos por Día ---
+
+        function loadDailyDataForEntryView(dateString) {
+            console.log("Cargando vista de entrada de datos para:", dateString);
+            document.getElementById('calendar-view').classList.add('hidden');
+            dataEntryView.classList.remove('hidden');
+            darkModeToggle.classList.add('hidden');
+            selectedDateDisplay.textContent = dateString;
+            
+            renderPredefinedVariablesForm();
+            renderDailyDataEntries(dateString);
+        }
+
+        function backToCalendar() {
+            console.log("Volviendo al calendario desde la vista de entrada de datos.");
+            dataEntryView.classList.add('hidden');
+            document.getElementById('calendar-view').classList.remove('hidden');
+            darkModeToggle.classList.remove('hidden');
+            selectedDay = null;
+            renderCalendar();
+        }
+
+        function getAllAvailableVariables() {
+            const userPersonalVars = appData[currentUserId].personalVariables || [];
+            return [...predefinedVariables, ...userPersonalVars.map(v => ({...v, type: 'custom'}))];
+        }
+
+        function renderPredefinedVariablesForm() {
+            console.log("Renderizando formulario de variables predefinidas y personalizadas.");
+            predefinedVariablesContainer.innerHTML = '';
+            const allVariables = getAllAvailableVariables();
+
+            allVariables.forEach(variable => {
+                const varDiv = document.createElement('div');
+                varDiv.classList.add('variable-entry');
+                varDiv.innerHTML = `
+                    <input type="checkbox" id="var-${variable.code}" data-code="${variable.code}" data-type="${variable.type || 'predefined'}" onchange="toggleVariableFields(this)">
+                    <label for="var-${variable.code}"><strong>${variable.code} - ${variable.name}</strong></label>
+                    <div id="fields-${variable.code}" class="variable-fields hidden">
+                        ${variable.requiresTime ? `
+                            <div class="form-row">
+                                <div><label>Hora Inicio:</label><input type="time" class="hora-ini"></div>
+                                <div><label>Hora Fin:</label><input type="time" class="hora-fin"></div>
+                            </div>
+                        ` : ''}
+                        ${variable.requiresQuantity ? `<div><label>Cantidad:</label><input type="number" class="cantidad" step="0.01"></div>` : ''}
+                        ${variable.requiresJustification ? `<div><label>Justificación (Descripción/Motivo):<span style="color:red;">*</span></label><input type="text" class="justificacion"></div>` : ''}
+                        ${!variable.requiresJustification && variable.requiresJustification !== undefined ? `<div><label>Justificación (Opcional):</label><input type="text" class="justificacion"></div>` : ''}
+                    </div>
+                `;
+                predefinedVariablesContainer.appendChild(varDiv);
+            });
+        }
+
+        function toggleVariableFields(checkbox) {
+            const code = checkbox.dataset.code;
+            const fieldsDiv = document.getElementById(`fields-${code}`);
+            if (fieldsDiv) {
+                if (checkbox.checked) {
+                    fieldsDiv.classList.remove('hidden');
+                } else {
+                    fieldsDiv.classList.add('hidden');
+                    fieldsDiv.querySelectorAll('input').forEach(input => input.value = '');
+                }
+                console.log(`Campos para ${code} ahora ${checkbox.checked ? 'visibles' : 'ocultos'}.`);
+            }
+        }
+
+        function addCustomVariable() {
+            const code = newVarCodeInput.value.trim().toUpperCase();
+            const name = newVarNameInput.value.trim();
+            console.log("Intentando agregar variable personalizada:", code, name);
+
+            if (!code || !name) {
+                alert("Por favor, ingrese el código y el nombre de la variable.");
+                return;
+            }
+            if (!code.startsWith('AR')) {
+                alert("El código de la variable debe comenzar con 'AR'.");
+                return;
+            }
+
+            const allVariables = getAllAvailableVariables();
+            if (allVariables.some(v => v.code === code)) {
+                alert("Ya existe una variable con este código.");
+                return;
+            }
+
+            const newVar = { 
+                code: code, 
+                name: name, 
+                type: 'custom', 
+                requiresTime: true, 
+                requiresQuantity: true, 
+                requiresJustification: true 
+            }; 
+
+            appData[currentUserId].personalVariables.push(newVar);
+            saveAppData();
+            alert(`Variable ${code} - ${name} agregada.`);
+            newVarCodeInput.value = '';
+            newVarNameInput.value = '';
+            renderPredefinedVariablesForm();
+        }
+
+        function saveDailyData() {
+            console.log("Guardando datos del día para:", selectedDay);
+            if (!selectedDay) {
+                alert("Error: No hay día seleccionado.");
+                return;
+            }
+
+            const dailyEntries = [];
+            const allVariables = getAllAvailableVariables();
+            let validationError = false; 
+
+            predefinedVariablesContainer.querySelectorAll('.variable-entry').forEach(entryDiv => {
+                const checkbox = entryDiv.querySelector('input[type="checkbox"]');
+                if (checkbox && checkbox.checked) {
+                    const code = checkbox.dataset.code;
+                    const type = checkbox.dataset.type;
+                    const variableInfo = allVariables.find(v => v.code === code);
+
+                    if (variableInfo) {
+                        const fieldsDiv = entryDiv.querySelector('.variable-fields');
+                        const horaIni = fieldsDiv.querySelector('.hora-ini')?.value || null;
+                        const horaFin = fieldsDiv.querySelector('.hora-fin')?.value || null;
+                        const cantidad = fieldsDiv.querySelector('.cantidad')?.value ? parseFloat(fieldsDiv.querySelector('.cantidad').value) : null;
+                        const justificacion = fieldsDiv.querySelector('.justificacion')?.value || null;
+
+                        if (variableInfo.requiresTime && (!horaIni || !horaFin)) {
+                            alert(`Por favor, ingrese Hora Inicio y Hora Fin para ${variableInfo.name}.`);
+                            validationError = true;
+                            return;
+                        }
+                        if (variableInfo.requiresQuantity && cantidad === null) {
+                            alert(`Por favor, ingrese la Cantidad para ${variableInfo.name}.`);
+                            validationError = true;
+                            return;
+                        }
+                        if (variableInfo.requiresJustification && !justificacion) {
+                            alert(`La justificación (descripción/motivo) es obligatoria para ${variableInfo.name}.`);
+                            validationError = true;
+                            return;
+                        }
+
+                        dailyEntries.push({
+                            type: type,
+                            code: code,
+                            name: variableInfo.name,
+                            horaIni: horaIni,
+                            horaFin: horaFin,
+                            cantidad: cantidad,
+                            justificacion: justificacion
+                        });
+                    }
+                }
+            });
+
+            if (validationError) {
+                console.log("Error de validación al guardar datos del día.");
+                return;
+            }
+
+            if (dailyEntries.length > 0) {
+                appData[currentUserId].dailyData[selectedDay] = dailyEntries;
+                saveAppData();
+                alert("Datos guardados correctamente para " + selectedDay);
+                backToCalendar(); 
+            } else {
+                delete appData[currentUserId].dailyData[selectedDay];
+                saveAppData();
+                alert("No se seleccionaron variables. Datos del día eliminados si existían.");
+                backToCalendar();
+            }
+        }
+
+        function renderDailyDataEntries(dateString) {
+            console.log("Renderizando entradas de datos diarios para:", dateString);
+            dailyDataEntries.innerHTML = '';
+            const dataForDay = appData[currentUserId].dailyData[dateString];
+
+            if (dataForDay && dataForDay.length > 0) {
+                noDataMessage.classList.add('hidden');
+                dataForDay.forEach((entry, index) => {
+                    const entryDiv = document.createElement('div');
+                    entryDiv.classList.add('variable-entry');
+                    entryDiv.innerHTML = `
+                        <p><strong>${entry.code} - ${entry.name}</strong></p>
+                        ${entry.horaIni ? `<p>Hora: ${entry.horaIni} - ${entry.horaFin}</p>` : ''}
+                        ${entry.cantidad !== null ? `<p>Cantidad: ${entry.cantidad}</p>` : ''}
+                        ${entry.justificacion ? `<p>Justificación (Descripción/Motivo): ${entry.justificacion}</p>` : ''}
+                        <button onclick="deleteDailyEntry('${dateString}', ${index})">Eliminar</button>
+                    `;
+                    dailyDataEntries.appendChild(entryDiv);
+                });
+            } else {
+                noDataMessage.classList.remove('hidden');
+            }
+        }
+
+        function deleteDailyEntry(dateString, index) {
+            console.log("Eliminando entrada de datos para", dateString, "en índice", index);
+            if (confirm('¿Estás seguro de que quieres eliminar esta entrada?')) {
+                appData[currentUserId].dailyData[dateString].splice(index, 1);
+                if (appData[currentUserId].dailyData[dateString].length === 0) {
+                    delete appData[currentUserId].dailyData[dateString];
+                }
+                saveAppData();
+                renderDailyDataEntries(dateString);
+                renderCalendar();
+            }
+        }
+
+        // --- Funciones de Exportación a Excel ---
+
+        function exportToExcel() {
+            console.log("Iniciando exportación a Excel.");
+            if (!currentUserId) {
+                alert("Por favor, ingresa un número de usuario primero.");
+                return;
+            }
+
+            const month = currentMonth.getMonth();
+            const year = currentMonth.getFullYear();
+            const monthName = currentMonth.toLocaleString('es-ES', { month: 'long' });
+
+            const allMonthRecords = [];
+
+            const headers = [
+                "Legajo", "Fecha", "Tipo", "Motivo", "Hora Ini", "Hora Fin",
+                "Hora Ini 2", "Hora Fin 2",
+                "Cantidad", "Importe", "Justificacion"
+            ];
+            
+            const userDailyData = appData[currentUserId].dailyData;
+
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const dailyRecords = userDailyData[dateKey];
+
+                if (dailyRecords && dailyRecords.length > 0) {
+                    dailyRecords.forEach(record => {
+                        let motivoValue = "NA";
+
+                        if (extraHourCodes.includes(record.code)) {
+                            motivoValue = record.justificacion || ''; 
+                        }
+
+                        const [recordYear, recordMonth, recordDay] = dateKey.split('-');
+                        const formattedDate = `${recordDay}-${recordMonth}-${recordYear}`;
+                        
+                        const row = [
+                            currentUserId,
+                            formattedDate,
+                            record.code,
+                            motivoValue,
+                            record.horaIni || '',
+                            record.horaFin || '',
+                            '',
+                            '',
+                            record.cantidad !== null ? record.cantidad : '',
+                            '',
+                            record.name
+                        ];
+                        allMonthRecords.push(row);
+                    });
+                }
+            }
+
+            allMonthRecords.sort((a, b) => {
+                const tipoA = a[2];
+                const tipoB = b[2];
+                if (tipoA < tipoB) return -1;
+                if (tipoA > tipoB) return 1;
+                return 0;
+            });
+
+            const dataToExport = [headers, ...allMonthRecords];
+
+            if (dataToExport.length <= 1) {
+                alert("No hay datos para exportar en este mes.");
+                return;
+            }
+
+            const ws = XLSX.utils.aoa_to_sheet(dataToExport);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, `Reporte ${monthName} ${year}`);
+            XLSX.writeFile(wb, `Reporte_Actividades_${currentUserId}_${monthName}_${year}.xlsx`);
+            alert("Archivo Excel generado con éxito!");
+            console.log("Archivo Excel generado.");
+        }
+
+        // --- Inicio de la aplicación ---
+        document.addEventListener('DOMContentLoaded', initApp);
+
+    </script>
+</body>
+</html>
